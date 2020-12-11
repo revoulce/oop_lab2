@@ -3,9 +3,9 @@
 //
 
 #pragma once
-#ifndef OOP_LAB2_TEST__MAIN_HPP_
-#define OOP_LAB2_TEST__MAIN_HPP_
+#ifndef OOP_LAB2__MAIN_HPP_
+#define OOP_LAB2__MAIN_HPP_
 #include <iostream>
 #include "CurrencyFactory.hpp"
 
-#endif //OOP_LAB2_TEST__MAIN_HPP_
+#endif //OOP_LAB2__MAIN_HPP_

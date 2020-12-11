@@ -3,8 +3,8 @@
 //
 
 #pragma once
-#ifndef OOP_LAB2_TEST__CURRENCY_HPP_
-#define OOP_LAB2_TEST__CURRENCY_HPP_
+#ifndef OOP_LAB2__CURRENCY_HPP_
+#define OOP_LAB2__CURRENCY_HPP_
 
 class Currency {
   public:
@@ -19,7 +19,7 @@ class Currency {
     friend Currency operator-(Currency left, const Currency& right);
 
   protected:
-    double total_;
+    double value_;
 };
 
-#endif //OOP_LAB2_TEST__CURRENCY_HPP_
+#endif //OOP_LAB2__CURRENCY_HPP_

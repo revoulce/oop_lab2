@@ -4,10 +4,10 @@
 
 #include "Currency.hpp"
 
-Currency::Currency(double total) : total_(total) {}
+Currency::Currency(double total) : value_(total) {}
 
 Currency& Currency::operator+=(const Currency& other) {
-    this->total_ = this->total_ + other.total_;
+    this->value_ = this->value_ + other.value_;
     return *this;
 }
 
@@ -17,10 +17,10 @@ Currency operator+(Currency left, const Currency& right) {
 }
 
 Currency& Currency::operator-=(const Currency& other) {
-    this->total_ = this->total_ - other.total_;
+    this->value_ = this->value_ - other.value_;
     return *this;
 }
 
 Currency operator-(Currency left, const Currency& right) {
-    return Currency(left.total_ + right.total_);
+    return Currency(left.value_ + right.value_);
 }

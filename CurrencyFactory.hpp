@@ -3,8 +3,8 @@
 //
 
 #pragma once
-#ifndef OOP_LAB2_TEST__CURRENCYFACTORY_HPP_
-#define OOP_LAB2_TEST__CURRENCYFACTORY_HPP_
+#ifndef OOP_LAB2__CURRENCYFACTORY_HPP_
+#define OOP_LAB2__CURRENCYFACTORY_HPP_
 #include <string>
 
 #include "Currency.hpp"
@@ -16,4 +16,4 @@ class CurrencyFactory {
     static Currency* Create(const std::string& value);
 };
 
-#endif //OOP_LAB2_TEST__CURRENCYFACTORY_HPP_
+#endif //OOP_LAB2__CURRENCYFACTORY_HPP_

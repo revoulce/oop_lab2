@@ -3,11 +3,10 @@
 //
 
 #pragma once
-#ifndef OOP_LAB2_TEST__DOLLAR_HPP_
-#define OOP_LAB2_TEST__DOLLAR_HPP_
+#ifndef OOP_LAB2__DOLLAR_HPP_
+#define OOP_LAB2__DOLLAR_HPP_
+#include <iostream>
 #include "Currency.hpp"
-#include "Euro.hpp"
-#include "Pound.hpp"
 
 class Dollar : public Currency {
   public:
@@ -16,6 +15,8 @@ class Dollar : public Currency {
     friend Dollar operator+(Dollar left, const Dollar& right);
 
     friend Dollar operator-(Dollar left, const Dollar& right);
+
+    friend std::ostream& operator<<(std::ostream& out, const Dollar& dollar);
 };
 
-#endif //OOP_LAB2_TEST__DOLLAR_HPP_
+#endif //OOP_LAB2__DOLLAR_HPP_

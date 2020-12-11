@@ -15,3 +15,8 @@ Euro operator-(Euro left, const Euro& right) {
     left -= right;
     return left;
 }
+
+std::ostream& operator<<(std::ostream& out, const Euro& euro) {
+    out << "€" << euro.value_;
+    return out;
+}
