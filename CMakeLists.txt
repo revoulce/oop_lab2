@@ -1,6 +1,6 @@
-# cmake_minimum_required(VERSION <specify CMake version here>)
-project(oop_lab2)
+cmake_minimum_required(VERSION 3.17)
+project(oop_lab2_test)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(oop_lab2 main.cpp Triangle.cpp Triangle.hpp EquilateralTriangle.cpp EquilateralTriangle.hpp IsoscelesTriangle.cpp IsoscelesTriangle.hpp)
+add_executable(oop_lab2_test main.cpp main.hpp Currency.cpp Currency.hpp Dollar.cpp Dollar.hpp Euro.cpp Euro.hpp Pound.cpp Pound.hpp CurrencyFactory.cpp CurrencyFactory.hpp)
