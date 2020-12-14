@@ -1,22 +1,22 @@
 //
-// Created by revoulce on 12/10/20.
+// Created by letih on 12/13/2020.
 //
 
 #include "Pound.hpp"
 
-Pound::Pound(double total) : Currency(total) {}
+Pound::Pound() : Currency(0.0) {}
 
-Pound operator+(Pound left, const Pound& right) {
-    left += right;
-    return left;
+Pound::Pound(double value) : Currency(value) {}
+
+void Pound::AddMoney(double value_to_add) {
+    value_ += value_to_add;
 }
 
-Pound operator-(Pound left, const Pound& right) {
-    left -= right;
-    return left;
-}
+bool Pound::SubMoney(double value_to_sub) {
+    if (value_ >= value_to_sub) {
+        value_ -= value_to_sub;
+        return true;
+    }
 
-std::ostream& operator<<(std::ostream& out, const Pound& pound) {
-    out << "£" << pound.value_;
-    return out;
+    return false;
 }

@@ -1,22 +1,21 @@
 //
-// Created by revoulce on 12/10/20.
+// Created by letih on 12/13/2020.
 //
 
 #pragma once
 #ifndef OOP_LAB2__EURO_HPP_
 #define OOP_LAB2__EURO_HPP_
-#include <iostream>
 #include "Currency.hpp"
 
 class Euro : public Currency {
   public:
-    explicit Euro(double total);
+    Euro();
 
-    friend Euro operator+(Euro left, const Euro& right);
+    explicit Euro(double value);
 
-    friend Euro operator-(Euro left, const Euro& right);
+    void AddMoney(double value_to_add) override;
 
-    friend std::ostream& operator<<(std::ostream& out, const Euro& euro);
+    bool SubMoney(double value_to_sub) override;
 };
 
 #endif //OOP_LAB2__EURO_HPP_

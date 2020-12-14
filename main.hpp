@@ -6,6 +6,6 @@
 #ifndef OOP_LAB2__MAIN_HPP_
 #define OOP_LAB2__MAIN_HPP_
 #include <iostream>
-#include "CurrencyFactory.hpp"
+#include "Console.hpp"
 
 #endif //OOP_LAB2__MAIN_HPP_

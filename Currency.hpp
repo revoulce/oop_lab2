@@ -8,15 +8,13 @@
 
 class Currency {
   public:
-    explicit Currency(double total);
+    Currency();
 
-    Currency& operator+=(const Currency& other);
+    explicit Currency(double value);
 
-    friend Currency operator+(Currency left, const Currency& right);
+    virtual void AddMoney(double value_to_add) = 0;
 
-    Currency& operator-=(const Currency& other);
-
-    friend Currency operator-(Currency left, const Currency& right);
+    virtual bool SubMoney(double value_to_sub) = 0;
 
   protected:
     double value_;

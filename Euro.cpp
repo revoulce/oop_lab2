@@ -1,22 +1,22 @@
 //
-// Created by revoulce on 12/10/20.
+// Created by letih on 12/13/2020.
 //
 
 #include "Euro.hpp"
 
-Euro::Euro(double total) : Currency(total) {}
+Euro::Euro() : Currency(0.0) {}
 
-Euro operator+(Euro left, const Euro& right) {
-    left += right;
-    return left;
+Euro::Euro(double value) : Currency(value) {}
+
+void Euro::AddMoney(double value_to_add) {
+    value_ += value_to_add;
 }
 
-Euro operator-(Euro left, const Euro& right) {
-    left -= right;
-    return left;
-}
+bool Euro::SubMoney(double value_to_sub) {
+    if (value_ >= value_to_sub) {
+        value_ -= value_to_sub;
+        return true;
+    }
 
-std::ostream& operator<<(std::ostream& out, const Euro& euro) {
-    out << "€" << euro.value_;
-    return out;
+    return false;
 }

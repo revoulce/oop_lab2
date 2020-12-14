@@ -1,22 +1,22 @@
 //
-// Created by revoulce on 12/10/20.
+// Created by letih on 12/13/2020.
 //
 
 #include "Dollar.hpp"
 
-Dollar::Dollar(double total) : Currency(total) {}
+Dollar::Dollar() : Currency(0.0) {}
 
-Dollar operator+(Dollar left, const Dollar& right) {
-    left += right;
-    return left;
+Dollar::Dollar(double value) : Currency(value) {}
+
+void Dollar::AddMoney(double value_to_add) {
+    value_ += value_to_add;
 }
 
-Dollar operator-(Dollar left, const Dollar& right) {
-    left -= right;
-    return left;
-}
+bool Dollar::SubMoney(double value_to_sub) {
+    if (value_ >= value_to_sub) {
+        value_ -= value_to_sub;
+        return true;
+    }
 
-std::ostream& operator<<(std::ostream& out, const Dollar& dollar) {
-    out << "$" << dollar.value_;
-    return out;
+    return false;
 }

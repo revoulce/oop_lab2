@@ -1,18 +1,18 @@
 //
-// Created by revoulce on 12/10/20.
+// Created by letih on 12/13/2020.
 //
 
 #include "CurrencyFactory.hpp"
 
-Currency* CurrencyFactory::Create(const std::string& value) {
-    int total = std::stoi(value.substr(1));
+Currency* CurrencyFactory::Create(const std::string& str_value) {
+    double value = std::stod(str_value);
 
-    if (value.starts_with("$")) {
-        return new Dollar(total);
-    } else if (value.starts_with("€")) {
-        return new Euro(total);
-    } else if (value.starts_with("£")) {
-        return new Pound(total);
+    if (str_value.starts_with("$")) {
+        return new Dollar(value);
+    } else if (str_value.starts_with("€")) {
+        return new Euro(value);
+    } else if (str_value.starts_with("£")) {
+        return new Pound(value);
     }
 
     return nullptr;

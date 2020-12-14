@@ -1,22 +1,21 @@
 //
-// Created by revoulce on 12/10/20.
+// Created by letih on 12/13/2020.
 //
 
 #pragma once
 #ifndef OOP_LAB2__DOLLAR_HPP_
 #define OOP_LAB2__DOLLAR_HPP_
-#include <iostream>
 #include "Currency.hpp"
 
 class Dollar : public Currency {
   public:
-    explicit Dollar(double total);
+    Dollar();
 
-    friend Dollar operator+(Dollar left, const Dollar& right);
+    explicit Dollar(double value);
 
-    friend Dollar operator-(Dollar left, const Dollar& right);
+    void AddMoney(double value_to_add) override;
 
-    friend std::ostream& operator<<(std::ostream& out, const Dollar& dollar);
+    bool SubMoney(double value_to_sub) override;
 };
 
 #endif //OOP_LAB2__DOLLAR_HPP_

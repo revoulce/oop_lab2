@@ -1,22 +1,21 @@
 //
-// Created by revoulce on 12/10/20.
+// Created by letih on 12/13/2020.
 //
 
 #pragma once
 #ifndef OOP_LAB2__POUND_HPP_
 #define OOP_LAB2__POUND_HPP_
-#include <iostream>
 #include "Currency.hpp"
 
 class Pound : public Currency {
   public:
-    explicit Pound(double total);
+    Pound();
 
-    friend Pound operator+(Pound left, const Pound& right);
+    explicit Pound(double value);
 
-    friend Pound operator-(Pound left, const Pound& right);
+    void AddMoney(double value_to_add) override;
 
-    friend std::ostream& operator<<(std::ostream& out, const Pound& pound);
+    bool SubMoney(double value_to_sub) override;
 };
 
 #endif //OOP_LAB2__POUND_HPP_
