@@ -4,7 +4,7 @@
 
 #include "Purse.hpp"
 
-Purse::Purse() : dollars_(new Dollar(0.0)), euro_(new Euro(0.0)), pounds_(new Pound(0.0)) {}
+Purse::Purse() : dollars_(new Dollar(0.0f)), euro_(new Euro(0.0f)), pounds_(new Pound(0.0f)) {}
 
 Purse::~Purse() {
     delete dollars_;
@@ -12,7 +12,9 @@ Purse::~Purse() {
     delete pounds_;
 }
 
-bool Purse::AddMoney(double value_to_add, int type) {
+bool Purse::AddMoney(float value_to_add, int type) {
+    value_to_add = Round(value_to_add);
+
     switch (type) {
         case 1:
             dollars_->AddMoney(value_to_add);
@@ -28,7 +30,9 @@ bool Purse::AddMoney(double value_to_add, int type) {
     }
 }
 
-bool Purse::SubMoney(double value_to_sub, int type = 0) {
+bool Purse::SubMoney(float value_to_sub, int type = 0) {
+    value_to_sub = Round(value_to_sub);
+
     switch (type) {
         case 1:
             return dollars_->SubMoney(value_to_sub);
@@ -39,4 +43,16 @@ bool Purse::SubMoney(double value_to_sub, int type = 0) {
         default:
             return false;
     }
+}
+
+std::ostream& operator<<(std::ostream& os, const Purse& purse) {
+    os << "$" << purse.dollars_->GetValue() << " ";
+    os << "€" << purse.euro_->GetValue() << " ";
+    os << "£" << purse.pounds_->GetValue();
+    return os;
+}
+
+float Purse::Round(float value) {
+    float value2 = std::lround(value * 100 + 0.5);
+    return (float) (value2 / 100);
 }

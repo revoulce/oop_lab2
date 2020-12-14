@@ -4,15 +4,19 @@
 
 #include "Pound.hpp"
 
-Pound::Pound() : Currency(0.0) {}
+Pound::Pound() : Currency(0.0f) {}
 
-Pound::Pound(double value) : Currency(value) {}
+Pound::Pound(float value) : Currency(value) {}
 
-void Pound::AddMoney(double value_to_add) {
+float Pound::GetValue() const {
+    return value_;
+}
+
+void Pound::AddMoney(float value_to_add) {
     value_ += value_to_add;
 }
 
-bool Pound::SubMoney(double value_to_sub) {
+bool Pound::SubMoney(float value_to_sub) {
     if (value_ >= value_to_sub) {
         value_ -= value_to_sub;
         return true;

@@ -5,6 +5,8 @@
 #pragma once
 #ifndef OOP_LAB2__PURSE_HPP_
 #define OOP_LAB2__PURSE_HPP_
+#include <iostream>
+#include <cmath>
 #include "Dollar.hpp"
 #include "Euro.hpp"
 #include "Pound.hpp"
@@ -15,9 +17,13 @@ class Purse {
 
     ~Purse();
 
-    bool AddMoney(double value_to_add, int type);
+    bool AddMoney(float value_to_add, int type);
 
-    bool SubMoney(double value_to_sub, int type);
+    bool SubMoney(float value_to_sub, int type);
+
+    float Round(float value);
+
+    friend std::ostream& operator<<(std::ostream& os, const Purse& purse);
 
   private:
     Dollar* dollars_;

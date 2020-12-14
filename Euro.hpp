@@ -11,11 +11,13 @@ class Euro : public Currency {
   public:
     Euro();
 
-    explicit Euro(double value);
+    explicit Euro(float value);
 
-    void AddMoney(double value_to_add) override;
+    [[nodiscard]] float GetValue() const;
 
-    bool SubMoney(double value_to_sub) override;
+    void AddMoney(float value_to_add) override;
+
+    bool SubMoney(float value_to_sub) override;
 };
 
 #endif //OOP_LAB2__EURO_HPP_

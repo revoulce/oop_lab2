@@ -10,14 +10,14 @@ class Currency {
   public:
     Currency();
 
-    explicit Currency(double value);
+    explicit Currency(float value);
 
-    virtual void AddMoney(double value_to_add) = 0;
+    virtual void AddMoney(float value_to_add) = 0;
 
-    virtual bool SubMoney(double value_to_sub) = 0;
+    virtual bool SubMoney(float value_to_sub) = 0;
 
   protected:
-    double value_;
+    float value_;
 };
 
 #endif //OOP_LAB2__CURRENCY_HPP_

@@ -4,6 +4,6 @@
 
 #include "Currency.hpp"
 
-Currency::Currency() : value_(0.0) {}
+Currency::Currency() : value_(0.0f) {}
 
-Currency::Currency(double value) : value_(value) {}
+Currency::Currency(float value) : value_(value) {}
