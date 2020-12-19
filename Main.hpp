@@ -1,11 +1,11 @@
 //
-// Created by revoulce on 12/10/20.
+// Created by letih on 12/19/2020.
 //
 
 #pragma once
 #ifndef OOP_LAB2__MAIN_HPP_
 #define OOP_LAB2__MAIN_HPP_
-#include <iostream>
-#include "Console.hpp"
+
+int main(void);
 
 #endif //OOP_LAB2__MAIN_HPP_
