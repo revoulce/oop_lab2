@@ -38,9 +38,7 @@ class Console {
 
     Line* Input(int type, int number);
 
-    void AddLines(int type = 0);
-
-    void SubLines(int type = 0);
+    void LineActions(int action, int type = 0);
 
 #if defined(WINDOWS_SUPPORT)
 
@@ -52,9 +50,9 @@ class Console {
 
     void ClearConsole();
 
-    void Raw();
+    void Raw(bool b);
 
-    void WaitForAnyKey(const std::string& promt = std::string());
+    int WaitForAnyKey(const std::string& prompt = std::string("Press any key to continue..."));
 
 #endif
 };

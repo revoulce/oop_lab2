@@ -25,7 +25,7 @@ void Console::Run() {
             case 0:
                 return;
             case 1:
-                AddLines(1);
+                LineActions(1, 1);
 #if defined(WINDOWS_SUPPORT)
                 WaitForAnyKey();
                 ClearConsole();
@@ -35,7 +35,7 @@ void Console::Run() {
 #endif
                 break;
             case 2:
-                AddLines(2);
+                LineActions(1, 2);
 #if defined(WINDOWS_SUPPORT)
                 WaitForAnyKey();
                 ClearConsole();
@@ -46,7 +46,7 @@ void Console::Run() {
 
                 break;
             case 3:
-                SubLines(1);
+                LineActions(2, 1);
 #if defined(WINDOWS_SUPPORT)
                 WaitForAnyKey();
                 ClearConsole();
@@ -56,7 +56,7 @@ void Console::Run() {
 #endif
                 break;
             case 4:
-                SubLines(2);
+                LineActions(2, 2);
 #if defined(WINDOWS_SUPPORT)
                 WaitForAnyKey();
                 ClearConsole();
@@ -80,15 +80,23 @@ void Console::ShowMenu() {
     std::cout << "4. Subtract two rows." << std::endl;
 }
 
-void Console::AddLines(int type) {
-    try {
-        Line* first_line = Input(type, 1);
-        Line* second_line = Input(type, 2);
+void Console::LineActions(int action, int type) {
+    Line* first_line = Input(type, 1);
+    Line* second_line = Input(type, 2);
 
+    try {
         if (first_line != nullptr && second_line != nullptr) {
-            first_line->Add(second_line);
+            switch (action) {
+                case 1:
+                    first_line->Add(second_line);
+                    break;
+                case 2:
+                    first_line->Sub(second_line);
+                    break;
+            }
 
             std::cout << "Result is " << first_line << std::endl;
+
             return;
         }
 
@@ -100,25 +108,9 @@ void Console::AddLines(int type) {
         std::cerr << "Invalid value was given " << std::endl;
         std::cerr << "Error: " << e.what() << std::endl;
     }
-}
 
-void Console::SubLines(int type) {
-    try {
-        Line* first_line = Input(type, 1);
-        Line* second_line = Input(type, 2);
-
-        if (first_line != nullptr && second_line != nullptr) {
-            first_line->Sub(second_line);
-
-            std::cout << "Result is " << first_line << std::endl;
-            return;
-        }
-
-        std::cerr << "Error adding two lines" << std::endl;
-    } catch (std::out_of_range& e) {
-        std::cerr << "Entered value is too big." << std::endl;
-        std::cerr << "Error: " << e.what() << std::endl;
-    }
+    delete first_line;
+    delete second_line;
 }
 
 Line* Console::Input(int type, int number) {
@@ -219,6 +211,51 @@ void Console::ClearConsole() {
     }
 
     putp(tigetstr("clear"));
+}
+
+void Console::Raw(bool b) {
+    struct termios settings;
+    static struct termios initial_settings;
+    static bool is_unitialized = false;
+
+    if (!is_unitialized) {
+        is_unitialized = tcgetattr(STDIN_FILENO, &initial_settings) == 0;
+
+        if (!is_unitialized) {
+            return;
+        }
+    }
+
+    if (b) {
+        tcgetattr(STDIN_FILENO, &settings);
+
+        settings.c_cc[VTIME] = 0;
+        settings.c_cc[VMIN] = 1;
+        settings.c_iflag &= ~(BRKINT | ICRNL | INLCR | ISTRIP | IXOFF);
+        settings.c_iflag |= IGNBRK;
+        settings.c_oflag &= ~(OPOST);
+        settings.c_cflag &= ~(CSIZE | PARENB);
+        settings.c_cflag |= CS8;
+        settings.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
+    } else {
+        settings = initial_settings;
+    }
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &settings);
+}
+
+int Console::WaitForAnyKey(const std::string& prompt) {
+    struct termios settings;
+
+    tcgetattr(STDIN_FILENO, &settings);
+
+    Raw(true);
+
+    std::cout << prompt << std::endl;
+    int result = getchar();
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &settings);
+    return result;
 }
 
 #endif
