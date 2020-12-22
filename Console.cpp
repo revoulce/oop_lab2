@@ -8,6 +8,12 @@ void Console::Run() {
     std::string str_user_answer;
     int user_answer;
 
+    void (* ClearConsole)();
+    void (* WaitForAnyKey)();
+
+    ClearConsole = ConsoleFactory::GetClearConsole();
+    WaitForAnyKey = ConsoleFactory::GetWaitForAnyKey();
+
     while (true) {
         ShowMenu();
 
@@ -26,44 +32,23 @@ void Console::Run() {
                 return;
             case 1:
                 LineActions(1, 1);
-#if defined(WINDOWS_SUPPORT)
                 WaitForAnyKey();
                 ClearConsole();
-#elif defined(LINUX_SUPPORT)
-                WaitForAnyKey();
-                ClearConsole();
-#endif
                 break;
             case 2:
                 LineActions(1, 2);
-#if defined(WINDOWS_SUPPORT)
                 WaitForAnyKey();
                 ClearConsole();
-#elif defined(LINUX_SUPPORT)
-                WaitForAnyKey();
-                ClearConsole();
-#endif
-
                 break;
             case 3:
                 LineActions(2, 1);
-#if defined(WINDOWS_SUPPORT)
                 WaitForAnyKey();
                 ClearConsole();
-#elif defined(LINUX_SUPPORT)
-                WaitForAnyKey();
-                ClearConsole();
-#endif
                 break;
             case 4:
                 LineActions(2, 2);
-#if defined(WINDOWS_SUPPORT)
                 WaitForAnyKey();
                 ClearConsole();
-#elif defined(LINUX_SUPPORT)
-                WaitForAnyKey();
-                ClearConsole();
-#endif
                 break;
             default:
                 std::cerr << "Wrong choice." << std::endl;
@@ -144,118 +129,3 @@ Line* Console::Input(int type, int number) {
 
     return LineFactory::Create(str_line, type);
 }
-
-#if defined(WINDOWS_SUPPORT)
-
-void Console::ClearConsole() {
-    CONSOLE_SCREEN_BUFFER_INFO console_screen_buffer_info;
-    DWORD count;
-    COORD home_coords = {0, 0};
-    HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-
-    if (handle == INVALID_HANDLE_VALUE) {
-        return;
-    }
-
-    if (GetConsoleScreenBufferInfo(handle, &console_screen_buffer_info) == 0) {
-        return;
-    }
-
-    DWORD cell_count = console_screen_buffer_info.dwSize.X * console_screen_buffer_info.dwSize.Y;
-
-    if (FillConsoleOutputCharacter(handle, static_cast<TCHAR>(' '), cell_count, home_coords, &count) == 0) {
-        return;
-    }
-
-    if (FillConsoleOutputAttribute(handle, console_screen_buffer_info.wAttributes, cell_count, home_coords, &count)
-        == 0) {
-        return;
-    }
-
-    SetConsoleCursorPosition(handle, home_coords);
-}
-
-void Console::WaitForAnyKey(const TCHAR* prompt) {
-    TCHAR tchar;
-    DWORD mode;
-    DWORD count;
-    HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
-
-    if (prompt == nullptr) {
-        prompt = TEXT("Press any key...\n");
-    }
-
-    WriteConsole(GetStdHandle(STD_OUTPUT_HANDLE), prompt, lstrlen(prompt), &count, nullptr);
-
-    GetConsoleMode(handle, &mode);
-    SetConsoleMode(handle, 0);
-
-    WaitForSingleObject(handle, INFINITE);
-
-    ReadConsole(handle, &tchar, 1, &count, nullptr);
-
-    SetConsoleMode(handle, mode);
-}
-
-#elif defined(LINUX_SUPPORT)
-
-void Console::ClearConsole() {
-    if (!cur_term) {
-        int success;
-
-        setupterm(nullptr, STDOUT_FILENO, &success);
-
-        if (success <= 0) {
-            return;
-        }
-    }
-
-    putp(tigetstr("clear"));
-}
-
-void Console::Raw(bool b) {
-    struct termios settings;
-    static struct termios initial_settings;
-    static bool is_unitialized = false;
-
-    if (!is_unitialized) {
-        is_unitialized = tcgetattr(STDIN_FILENO, &initial_settings) == 0;
-
-        if (!is_unitialized) {
-            return;
-        }
-    }
-
-    if (b) {
-        tcgetattr(STDIN_FILENO, &settings);
-
-        settings.c_cc[VTIME] = 0;
-        settings.c_cc[VMIN] = 1;
-        settings.c_iflag &= ~(BRKINT | ICRNL | INLCR | ISTRIP | IXOFF);
-        settings.c_iflag |= IGNBRK;
-        settings.c_oflag &= ~(OPOST);
-        settings.c_cflag &= ~(CSIZE | PARENB);
-        settings.c_cflag |= CS8;
-        settings.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
-    } else {
-        settings = initial_settings;
-    }
-
-    tcsetattr(STDIN_FILENO, TCSANOW, &settings);
-}
-
-int Console::WaitForAnyKey(const std::string& prompt) {
-    struct termios settings;
-
-    tcgetattr(STDIN_FILENO, &settings);
-
-    Raw(true);
-
-    std::cout << prompt << std::endl;
-    int result = getchar();
-
-    tcsetattr(STDIN_FILENO, TCSANOW, &settings);
-    return result;
-}
-
-#endif

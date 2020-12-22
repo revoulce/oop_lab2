@@ -6,25 +6,8 @@
 #ifndef OOP_LAB2__CONSOLE_HPP_
 #define OOP_LAB2__CONSOLE_HPP_
 
-#if defined(_WIN32) || defined(_WIN64)
-#define WINDOWS_SUPPORT
-#elif defined(linux) || defined(__linux) || defined(__linux__)
-#define LINUX_SUPPORT
-#endif
-
-#if defined(WINDOWS_SUPPORT)
-
-#include <Windows.h>
-
-#elif defined(LINUX_SUPPORT)
-
-#include <unistd.h>
-#include <term.h>
-#include <termios.h>
-
-#endif
-
 #include <iostream>
+#include "ConsoleFactory.hpp"
 #include "Integer.hpp"
 #include "LineFactory.hpp"
 #include "Row.hpp"
@@ -39,22 +22,6 @@ class Console {
     Line* Input(int type, int number);
 
     void LineActions(int action, int type = 0);
-
-#if defined(WINDOWS_SUPPORT)
-
-    void ClearConsole();
-
-    void WaitForAnyKey(const TCHAR* prompt = nullptr);
-
-#elif defined(LINUX_SUPPORT)
-
-    void ClearConsole();
-
-    void Raw(bool b);
-
-    int WaitForAnyKey(const std::string& prompt = std::string("Press any key to continue..."));
-
-#endif
 };
 
 #endif //OOP_LAB2__CONSOLE_HPP_
