@@ -18,6 +18,7 @@
 
 #elif defined(LINUX_SUPPORT)
 
+#include <iostream>
 #include <string>
 #include <term.h>
 #include <termios.h>
