@@ -17,7 +17,7 @@ class Line {
 
     virtual ~Line() = default;
 
-    [[nodiscard]] std::string& GetLine() const;
+    [[nodiscard]] const std::string& GetLine() const;
 
     virtual void Add(const std::string& line) = 0;
 

@@ -78,14 +78,14 @@ void Console::LineActions(int action, int type) {
                 case 2:
                     first_line->Sub(second_line);
                     break;
+                default:
+                    std::cerr << "Wrong action with lines." << std::endl;
             }
 
             std::cout << "Result is " << first_line << std::endl;
-
-            return;
+        } else {
+            std::cerr << "Error adding two lines" << std::endl;
         }
-
-        std::cerr << "Error adding two lines" << std::endl;
     } catch (std::out_of_range& e) {
         std::cerr << "Entered value is too big." << std::endl;
         std::cerr << "Error: " << e.what() << std::endl;

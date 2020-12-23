@@ -130,7 +130,7 @@ void Raw(bool b) {
     tcsetattr(STDIN_FILENO, TCSANOW, &settings);
 }
 
-int WaitForAnyKey() {
+void WaitForAnyKey() {
     const std::string prompt = std::string("Press any key to continue...");
     struct termios settings;
 
@@ -139,10 +139,9 @@ int WaitForAnyKey() {
     Raw(true);
 
     std::cout << prompt << std::endl;
-    int result = getchar();
+    getchar();
 
     tcsetattr(STDIN_FILENO, TCSANOW, &settings);
-    return result;
 }
 
 #endif //WINDOWS_SUPPORT || LINUX_SUPPORT
