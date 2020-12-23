@@ -10,8 +10,17 @@
 #include "Line.hpp"
 #include "Row.hpp"
 
+/**
+ * @brief Класс для создания строки или числа
+ */
 class LineFactory {
   public:
+    /**
+     * @brief Создаёт строку или число
+     * @param line Строка для анализа или создания
+     * @param type Какой объект создавать, если не указано, то объект создаётся на основе анализа строки line
+     * @return Указатель на созданный объект
+     */
     static Line* Create(const std::string& line, int type = 0);
 };
 
