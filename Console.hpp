@@ -7,7 +7,7 @@
 #define OOP_LAB2__CONSOLE_HPP_
 
 #include <iostream>
-#include "ConsoleFactory.hpp"
+#include "ConsoleActionsFactory.hpp"
 #include "Integer.hpp"
 #include "LineFactory.hpp"
 #include "Row.hpp"

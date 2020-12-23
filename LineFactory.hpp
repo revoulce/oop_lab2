@@ -13,7 +13,6 @@
 class LineFactory {
   public:
     static Line* Create(const std::string& line, int type = 0);
-
 };
 
 #endif //OOP_LAB2__LINEFACTORY_HPP_

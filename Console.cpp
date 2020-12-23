@@ -11,8 +11,8 @@ void Console::Run() {
     void (* ClearConsole)();
     void (* WaitForAnyKey)();
 
-    ClearConsole = ConsoleFactory::GetClearConsole();
-    WaitForAnyKey = ConsoleFactory::GetWaitForAnyKey();
+    ClearConsole = ConsoleActionsFactory::GetClearConsole();
+    WaitForAnyKey = ConsoleActionsFactory::GetWaitForAnyKey();
 
     while (true) {
         ShowMenu();

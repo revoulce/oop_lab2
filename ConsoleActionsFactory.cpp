@@ -2,7 +2,7 @@
 // Created by letih on 12/22/2020.
 //
 
-#include "ConsoleFactory.hpp"
+#include "ConsoleActionsFactory.hpp"
 
 #if defined(WINDOWS_SUPPORT)
 
@@ -20,14 +20,14 @@ void WaitForAnyKey();
 
 #endif //WINDOWS_SUPPORT || LINUX_SUPPORT
 
-auto ConsoleFactory::GetClearConsole() -> void (*)() {
+auto ConsoleActionsFactory::GetClearConsole() -> void (*)() {
 #if defined(WINDOWS_SUPPORT) || defined(LINUX_SUPPORT)
     return &ClearConsole;
 #endif
     return nullptr;
 }
 
-auto ConsoleFactory::GetWaitForAnyKey() -> void (*)() {
+auto ConsoleActionsFactory::GetWaitForAnyKey() -> void (*)() {
 #if defined(WINDOWS_SUPPORT) || defined(LINUX_SUPPORT)
     return &WaitForAnyKey;
 #endif

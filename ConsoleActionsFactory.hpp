@@ -3,8 +3,8 @@
 //
 
 #pragma once
-#ifndef OOP_LAB2__CONSOLEFACTORY_HPP_
-#define OOP_LAB2__CONSOLEFACTORY_HPP_
+#ifndef OOP_LAB2__CONSOLEACTIONSFACTORY_HPP_
+#define OOP_LAB2__CONSOLEACTIONSFACTORY_HPP_
 
 #if defined(_WIN32) || defined(_WIN64)
 #define WINDOWS_SUPPORT
@@ -25,11 +25,11 @@
 
 #endif //WINDOWS_SUPPORT || LINUX_SUPPORT
 
-class ConsoleFactory {
+class ConsoleActionsFactory {
   public:
     static auto GetClearConsole() -> void (*)();
 
     static auto GetWaitForAnyKey() -> void (*)();
 };
 
-#endif //OOP_LAB2__CONSOLEFACTORY_HPP_
+#endif //OOP_LAB2__CONSOLEACTIONSFACTORY_HPP_
